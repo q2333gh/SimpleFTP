@@ -50,7 +50,7 @@ public class FileController {
 //      todo : if contentType is img , it display good.
 //             if pdf, if cant display.
 //             mp4,mp3 not test yet. mp4 is much more big, need advance code, maybe like a slicing windows mechanism?
-//      response.setContentType("application/" + getSuffix(file_name));
+//      response.setContentType("application/" + getSuffix(file_name));//如果加了application/前缀,固定会打开dialog下载
       response.setContentType(getSuffix(file_name));
 //      setContentType() ->  receive a para called: MIME type( Multipurpose Internet Mail Extensions)
       response.addHeader("Content-Disposition", "attachment;" + " filename=" + file_name);
