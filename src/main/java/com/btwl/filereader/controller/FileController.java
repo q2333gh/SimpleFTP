@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,13 +50,11 @@ public class FileController {
 //      todo : if contentType is img , it display good.
 //             if pdf, if cant display.
 //             mp4,mp3 not test yet. mp4 is much more big, need advance code, maybe like a slicing windows mechanism?
-//      response.setContentType("application/octet-stream");
-            response.setContentType("application/"+getSuffix(file_name));
+      response.setContentType("application/" + getSuffix(file_name));
 //      setContentType() ->  receive a para called: MIME type( Multipurpose Internet Mail Extensions)
-//      application/octet-stream  ->  goto download behaviour directly in browser.
-
-
-      response.addHeader("Content-Disposition", "attachment; filename="+file_name);
+      response.addHeader("Content-Disposition", "inline;" + " filename=" + file_name);
+//    Content-Disposition -> inline(default) >> display in browser;
+//                           attachment      >> open a dialog in browser , ask for download
       data_flow_with_buffer(iStream, oStream);
     } catch (Exception e) {
       e.printStackTrace();
@@ -71,7 +70,8 @@ public class FileController {
     }
   }
 
-  private static void data_flow_with_buffer(InputStream iStream, OutputStream oStream) throws IOException {
+  private static void data_flow_with_buffer(InputStream iStream, OutputStream oStream)
+      throws IOException {
     int len = 0;
     byte[] bytes = new byte[1024];
     while ((len = iStream.read(bytes)) != -1) {
