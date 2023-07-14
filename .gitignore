@@ -25,6 +25,7 @@ target/
 *.jpg
 *.png
 
+deploy-remote.sh
 
 
 

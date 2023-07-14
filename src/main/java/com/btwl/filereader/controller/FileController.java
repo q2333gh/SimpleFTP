@@ -50,9 +50,10 @@ public class FileController {
 //      todo : if contentType is img , it display good.
 //             if pdf, if cant display.
 //             mp4,mp3 not test yet. mp4 is much more big, need advance code, maybe like a slicing windows mechanism?
-      response.setContentType("application/" + getSuffix(file_name));
+//      response.setContentType("application/" + getSuffix(file_name));
+      response.setContentType(getSuffix(file_name));
 //      setContentType() ->  receive a para called: MIME type( Multipurpose Internet Mail Extensions)
-      response.addHeader("Content-Disposition", "inline;" + " filename=" + file_name);
+      response.addHeader("Content-Disposition", "attachment;" + " filename=" + file_name);
 //    Content-Disposition -> inline(default) >> display in browser;
 //                           attachment      >> open a dialog in browser , ask for download
       data_flow_with_buffer(iStream, oStream);
